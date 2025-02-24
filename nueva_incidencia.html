@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva Incidencia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .incidencia-container {
+            width: 100%;
+            max-width: 900px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 20px;
+            gap: 15px;
+        }
+
+        .info-box {
+            flex: 1;
+            min-width: 250px;
+            background: #f8f8f8;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .info-box input,
+        .info-box select,
+        .info-box textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        .action-buttons,
+        .bottom-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-continue {
+            background: #1abc9c;
+            color: white;
+        }
+
+        .btn-skip {
+            background: red;
+            color: white;
+        }
+
+        .btn-back {
+            background: #555;
+            color: white;
+        }
+
+        .btn-create {
+            background: #2c3e50;
+            color: white;
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 768px) {
+            .info-section {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="incidencia-container">
+        <h4>Folio Clave Única Sanjuanense <span style="color: red;">*</span></h4>
+        <div class="info-box" style="display: flex; align-items: center;">
+            <span
+                style="background: #1abc9c; color: white; padding: 8px 12px; border-radius: 5px; font-weight: bold; margin-right: 5px;">
+                CUS -
+            </span>
+            <input type="text" id="inputFolio" placeholder="Ingrese folio" style="flex: 1;">
+        </div>
+        <div class="bottom-buttons">
+            <button id="btnBuscar" class="btn btn-continue"><i class="fas"></i>Buscar Ciudadano</button>
+        </div>
+        <br>
+        <h4>Datos de contacto</h4>
+        <div class="info-section">
+            <div class="info-box">
+                <label>Nombre</label>
+                <input type="text" id="nombre" placeholder="Ingrese nombre" readonly>
+            </div>
+            <div class="info-box">
+                <label>Apellido Paterno</label>
+                <input type="text" id="apellidoPaterno" placeholder="Ingrese apellido paterno" readonly>
+            </div>
+            <div class="info-box">
+                <label>Apellido Materno</label>
+                <input type="text" id="apellidoMaterno" placeholder="Ingrese apellido materno" readonly>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <div class="info-box">
+                <label>Teléfono</label>
+                <input type="text" id="telefono" placeholder="Ingrese teléfono" readonly>
+            </div>
+            <div class="info-box">
+                <label>Correo Electrónico (Opcional)</label>
+                <input type="email" id="correo" placeholder="Ingrese correo" readonly>
+            </div>
+            <div class="info-box">
+                <label>INE (Opcional)</label>
+                <input type="text" placeholder="Ingrese INE">
+            </div>
+        </div>
+
+
+        <!-- CHECKBOX INCLUIR MAPA -->
+        <div class="info-section">
+            <div class="info-box">
+                <input type="checkbox" id="incluirMapa">
+                <label for="incluirMapa">Incluir Mapa</label>
+            </div>
+        </div>
+
+        <!-- NUEVA SECCIÓN DE DATOS DEL INCIDENTE -->
+        <div class="incident-section">
+            <h4>Datos del incidente</h4>
+            <div class="info-section">
+                <div class="info-box">
+                    <label>Tipo de Solicitante <span style="color: red;">*</span></label>
+                    <select id="tipo_solicitante">
+                        <option value="">Seleccione...</option>
+                        <option>Asociaciones</option>
+                        <option>Ciudadano</option>
+                        <option>Delegado/Subdelegado</option>
+                        <option>Entidad Estatal</option>
+                        <option>Entidad Federal</option>
+                        <option>Entidad Municipal</option>
+                        <option>Escuela</option>
+                        <option>Presidente de Colonos</option>
+                        <option>Proveedor</option>
+                        <option>Regidor</option>
+                    </select>
+                </div>
+                <div class="info-box">
+                    <label>Origen <span style="color: red;">*</span></label>
+                    <select id="origen">
+                        <option value="">Seleccione...</option>
+                        <option>App Movil</option>
+                        <option>Brigadistas Juntos Contigo</option>
+                        <option>Correo electrónico</option>
+                        <option>Gira Presidente</option>
+                        <option>Llamada Telefónica</option>
+                        <option>Martes Ciudadano</option>
+                        <option>Mi Querido SJ</option>
+                        <option>Oficio</option>
+                        <option>Página web</option>
+                        <option>Redes Sociales</option>
+                        <option>Regidores en Acción</option>
+                        <option>Visita Personal</option>
+                        <option>Whatsapp</option>
+                        <option>072 (Inactivo)</option>
+                    </select>
+
+                </div>
+            </div>
+
+            <div class="info-section">
+                <div class="info-box">
+                    <label>Motivo <span style="color: red;">*</span></label>
+                    <select id="motivo">
+                        <option value="">Seleccione...</option>
+                        <option>Agradecimiento</option>
+                        <option>Citas</option>
+                        <option>Informes</option>
+                        <option>Invitación</option>
+                        <option>Queja</option>
+                        <option>Solicitud</option>
+                        <option>Trámite</option>
+                    </select>
+                </div>
+                <div class="info-box">
+                    <label>Secretaría <span style="color: red;">*</span></label>
+                    <select id="secretaria">
+                        <option value="">Seleccione una secretaría...</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <div class="info-box">
+                    <label>Coordinación/Dirección <span style="color: red;">*</span></label>
+                    <select id="coordinacion" class="disabled">
+                        <option value="">Seleccione...</option>
+                    </select>
+                </div>
+                <div class="info-box">
+                    <label>Departamento <span style="color: red;">*</span></label>
+                    <select id="jefatura" class="disabled">
+                        <option value="">Seleccione...</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <div class="info-box">
+                    <label>Tipo de Incidencia <span style="color: red;">*</span></label>
+                    <select id="tipo_incidencia">
+                        <option>Seleccione...</option>
+                    </select>
+                </div>
+                <div class="info-box">
+                    <label>Colonias <span style="color: red;">*</span></label>
+                    <select id="colonias">
+                        <option value="">Selecciona una colonia...</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <div class="info-box" style="flex: 2;">
+                    <label>Dirección</label>
+                    <input type="text" placeholder="Ingrese dirección">
+                </div>
+            </div>
+
+            <div class="info-section">
+                <div class="info-box" style="flex: 2;">
+                    <label>Referencia</label>
+                    <input type="text" placeholder="Ingrese referencia">
+                </div>
+            </div>
+
+            <div class="info-section">
+                <div class="info-box" style="flex: 2;">
+                    <label>Comentarios <span style="color: red;">*</span></label>
+                    <textarea rows="3" placeholder="Ingrese comentarios"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTÓN "CREAR INCIDENCIA" -->
+        <div class="bottom-buttons">
+            <button class="btn btn-create"><i class="fas fa-plus"></i> Crear Incidencia</button>
+        </div>
+
+    </div>
+
+    <script src="js/main.js"></script>
+
+    <script>
+        let dataJSON;
+
+        document.addEventListener("DOMContentLoaded", async function () {
+            await cargarJSON();
+            llenarSecretarias();
+
+            document.getElementById("secretaria").addEventListener("change", function () {
+                llenarCoordinacionesODirecciones(this.value);
+            });
+
+            document.getElementById("coordinacion").addEventListener("change", function () {
+                llenarJefaturas(this.value);
+            });
+        });
+
+        // Cargar JSON externo
+        async function cargarJSON() {
+            try {
+                const response = await fetch("secretarias.json");
+                dataJSON = await response.json();
+            } catch (error) {
+                console.error("Error al cargar el JSON:", error);
+            }
+        }
+
+        // Llenar el filtro de secretarías
+        function llenarSecretarias() {
+            const select = document.getElementById("secretaria");
+            select.innerHTML = '<option value="">Seleccione una secretaría...</option>';
+
+            dataJSON.secretarias.forEach(secretaria => {
+                const option = document.createElement("option");
+                option.value = secretaria.nombre;
+                option.textContent = secretaria.nombre;
+                select.appendChild(option);
+            });
+        }
+
+        // Llenar el filtro de Coordinaciones/Direcciones/Subsecretarías
+        function llenarCoordinacionesODirecciones(secretariaSeleccionada) {
+            const selectCoordinacion = document.getElementById("coordinacion");
+            const selectJefatura = document.getElementById("jefatura");
+
+            selectCoordinacion.innerHTML = '<option value="">Seleccione una coordinación/dirección...</option>';
+            selectJefatura.innerHTML = '<option value="">Seleccione una jefatura...</option>';
+            selectCoordinacion.classList.add("disabled");
+            selectJefatura.classList.add("disabled");
+
+            const secretaria = dataJSON.secretarias.find(s => s.nombre === secretariaSeleccionada);
+
+            if (secretaria) {
+                // Agregar coordinaciones
+                if (secretaria.coordinaciones) {
+                    secretaria.coordinaciones.forEach(coordinacion => {
+                        const option = document.createElement("option");
+                        option.value = coordinacion.nombre;
+                        option.textContent = `${coordinacion.nombre}`;
+                        selectCoordinacion.appendChild(option);
+                    });
+                }
+
+                // Agregar direcciones
+                if (secretaria.direcciones) {
+                    secretaria.direcciones.forEach(direccion => {
+                        const option = document.createElement("option");
+                        option.value = direccion.nombre;
+                        option.textContent = `${direccion.nombre}`;
+                        selectCoordinacion.appendChild(option);
+                    });
+                }
+
+                // Agregar subsecretarías
+                if (secretaria.subsecretarías) {
+                    secretaria.subsecretarías.forEach(subsecretaria => {
+                        const option = document.createElement("option");
+                        option.value = subsecretaria.nombre;
+                        option.textContent = `${subsecretaria.nombre}`;
+                        selectCoordinacion.appendChild(option);
+                    });
+                }
+
+                if (selectCoordinacion.children.length > 1) {
+                    selectCoordinacion.classList.remove("disabled");
+                }
+            }
+        }
+
+        // Llenar el filtro de Jefaturas
+        function llenarJefaturas(coordinacionSeleccionada) {
+            const select = document.getElementById("jefatura");
+            select.innerHTML = '<option value="">Seleccione una jefatura...</option>';
+            select.classList.add("disabled");
+
+            const secretaria = dataJSON.secretarias.find(s => s.nombre === document.getElementById("secretaria").value);
+
+            let elementoSeleccionado = null;
+
+            if (secretaria) {
+                // Buscar en coordinaciones
+                if (secretaria.coordinaciones) {
+                    elementoSeleccionado = secretaria.coordinaciones.find(c => c.nombre === coordinacionSeleccionada);
+                }
+                // Buscar en direcciones
+                if (!elementoSeleccionado && secretaria.direcciones) {
+                    elementoSeleccionado = secretaria.direcciones.find(d => d.nombre === coordinacionSeleccionada);
+                }
+                // Buscar en subsecretarías
+                if (!elementoSeleccionado && secretaria.subsecretarías) {
+                    elementoSeleccionado = secretaria.subsecretarías.find(sub => sub.nombre === coordinacionSeleccionada);
+                }
+
+                // Si tiene jefaturas, las agregamos
+                if (elementoSeleccionado && elementoSeleccionado.jefaturas) {
+                    elementoSeleccionado.jefaturas.forEach(jefatura => {
+                        const option = document.createElement("option");
+                        option.value = jefatura;
+                        option.textContent = jefatura;
+                        select.appendChild(option);
+                    });
+                    select.classList.remove("disabled");
+                }
+            }
+        }
+    </script>
+
+    <script>
+        document.querySelector(".btn-create").addEventListener("click", async function () {
+            const data = {
+                folio_cus: document.querySelector("input[placeholder='Ingrese folio']").value,
+                tipo_solicitante: document.getElementById("tipo_solicitante").value,
+                origen: document.getElementById("origen").value,
+                motivo: document.getElementById("motivo").value,
+                secretaria: document.getElementById("secretaria").value,
+                coordinacion: document.getElementById("coordinacion").value,
+                departamento: document.getElementById("jefatura").value,
+                tipo_incidencia: document.getElementById("tipo_incidencia").value,
+                colonia: document.getElementById("colonia").value,
+                direccion: document.querySelector("input[placeholder='Ingrese dirección']").value,
+                referencia: document.querySelector("input[placeholder='Ingrese referencia']").value,
+                comentarios: document.querySelector("textarea").value
+            };
+
+            console.log("Datos enviados:", data); // DEPURACIÓN
+
+            try {
+                const response = await fetch("crear_incidencia.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                console.log("Respuesta del servidor:", result);
+
+                alert(result.success || result.error);
+            } catch (error) {
+                alert("Error en la solicitud: " + error.message);
+            }
+        });
+
+    </script>
+
+
+</body>
+
+</html>

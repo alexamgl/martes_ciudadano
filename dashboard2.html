@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        /* ======= SIDEBAR ======= */
+        .sidebar {
+            width: 250px;
+            background-color: #1b2a49;
+            color: white;
+            position: fixed;
+            height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: width 0.3s ease;
+            overflow: hidden;
+        }
+
+        .sidebar.collapsed {
+            width: 70px;
+        }
+
+        .sidebar .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sidebar .nav li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            cursor: pointer;
+            transition: background 0.3s;
+            border-radius: 8px;
+        }
+
+        .sidebar .nav li:hover {
+            background: #2d3e5d;
+        }
+
+        .sidebar.collapsed .nav li span {
+            display: none;
+        }
+
+        .sidebar.collapsed .logout span {
+            display: none;
+        }
+
+        .logout {
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ff4d4d;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .logout:hover {
+            background-color: #cc0000;
+        }
+
+        /* ======= CONTENIDO ======= */
+        .content {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            padding: 20px;
+            transition: margin-left 0.3s;
+        }
+
+        .content.adjusted {
+            margin-left: 70px;
+            width: calc(100% - 70px);
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ======= BOTÓN DE HAMBURGUESA ======= */
+        .top-bar .toggle-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            margin-right: auto;
+            /* Lo mueve a la izquierda */
+        }
+
+        /* ======= FILTROS ======= */
+        .filters {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        select,
+        input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            outline: none;
+        }
+
+        /* ======= BOTONES ======= */
+        .buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-qr {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-bars {
+            background: #2d3e5d;
+            color: white;
+        }
+
+        .btn-new {
+            background: #8e44ad;
+            color: white;
+        }
+
+        /* ======= TABLA ======= */
+        .table-container {
+            margin-top: 20px;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        table th,
+        table td {
+            text-align: left;
+            padding: 12px;
+        }
+
+        table th {
+            background: #2d3e5d;
+            color: white;
+        }
+
+        table td {
+            background: #f8f9fa;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+        table tr:hover td {
+            background: #d7ecff;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                margin-left: 70px;
+                width: calc(100% - 70px);
+            }
+
+            .sidebar {
+                width: 70px;
+            }
+
+            .sidebar .nav li span {
+                display: none;
+            }
+        }
+
+        .filter-btn {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            transition: background 0.3s;
+        }
+
+        .filter-btn .check-icon {
+            display: none;
+        }
+
+        .filter-btn.checked .check-icon {
+            display: inline;
+        }
+
+        /* Colores según el estado */
+        .open {
+            background: #1abc9c;
+        }
+
+        .completed {
+            background: #8e44ad;
+        }
+
+        .reserved {
+            background: #e74c3c;
+        }
+
+        .not-proceed {
+            background: #3498db;
+        }
+
+        .filter-btn:hover {
+            opacity: 0.8;
+        }
+
+        /* Estilos del modal */
+        .modal {
+            display: none;
+            /* Oculto por defecto */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 400px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .modal-content h2 {
+            margin-bottom: 15px;
+        }
+
+        .modal-content label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .modal-content input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 15px;
+        }
+
+        .btn-search {
+            background: #8e44ad;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-search:hover {
+            background: #732d91;
+        }
+
+        /* Botón de cierre */
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar" id="sidebar">
+        <div class="logo">LOGO</div>
+        <ul class="nav">
+            <li onclick="openNewTab('dashboard.html')"><i class="fas fa-home"></i><span> Dashboard</span></li>
+            <li onclick="openNewTab('usuarios.html')"><i class="fas fa-users"></i><span> Usuarios</span></li>
+            <li onclick="openNewTab('reportes.html')"><i class="fas fa-file-alt"></i><span> Reportes</span></li>
+        </ul>
+        <div class="logout"><i class="fas fa-sign-out-alt"></i><span> Cerrar sesión</span></div>
+    </div>
+
+    <div class="content" id="content">
+        <div class="top-bar">
+            <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+            <h1>Dashboard</h1>
+        </div>
+
+        <div class="filters-section">
+            <div class="filters-container">
+                <div>
+                    <button class="filter-btn open" onclick="toggleCheck(this)">
+                        ABIERTOS <i class="fas fa-check check-icon"></i>
+                    </button>
+                    <select id="secretaria">
+                        <option value="">Seleccione una secretaría...</option>
+                    </select>
+                    <select>
+                        <option>Orígen...</option>
+                        <option>App Movil</option>
+                        <option>Brigadistas Juntos Contigo</option>
+                        <option>Correo electrónico</option>
+                        <option>Gira Presidente</option>
+                        <option>Llamada Telefónica</option>
+                        <option>Martes Ciudadano</option>
+                        <option>Mi Querido SJ</option>
+                        <option>Oficio</option>
+                        <option>Página web</option>
+                        <option>Redes Sociales</option>
+                        <option>Regidores en Acción</option>
+                        <option>Visita Personal</option>
+                        <option>Whatsapp</option>
+                        <option>072 (Inactivo)</option>
+                    </select>
+                    <input type="text" placeholder="Escribe el nombre, teléfono del ciudadano">
+                </div>
+
+                <div>
+                    <button class="filter-btn completed" onclick="toggleCheck(this)">
+                        CONCLUIDOS <i class="fas fa-check check-icon"></i>
+                    </button>
+                    <select id="coordinacion" class="disabled">
+                        <option value="">Seleccione una coordinación/dirección...</option>
+                    </select>
+                    <select>
+                        <option>Motivos...</option>
+                        <option>Agradecimiento</option>
+                        <option>Citas</option>
+                        <option>Informes</option>
+                        <option>Invitación</option>
+                        <option>Queja</option>
+                        <option>Solicitud</option>
+                        <option>Trámite</option>
+
+
+                    </select>
+                    <input type="text" placeholder="Escribe el apellido paterno">
+                </div>
+
+                <div>
+                    <button class="filter-btn reserved" onclick="toggleCheck(this)">
+                        RESERVADOS <i class="fas fa-check check-icon"></i>
+                    </button>
+                    <select id="jefatura" class="disabled">
+                        <option value="">Seleccione un departamento...</option>
+                    </select>
+                    <select>
+                        <option>Últimos 100 registros</option>
+                        <option>Últimos 200 registros</option>
+                        <option>Últimos 400 registros</option>
+                        <option>Todos</option>
+                    </select>
+                    <input type="text" placeholder="Escribe el apellido materno">
+                </div>
+
+                <div>
+                    <button class="filter-btn not-proceed" onclick="toggleCheck(this)">
+                        NO PROCEDE <i class="fas fa-check check-icon"></i>
+                    </button>
+                    <select>
+                        <option>Tipos de Incidencias...</option>
+                    </select>
+                    <div class="date-group">
+                        <input type="date" class="date-input" value="2025-01-19">
+                        <span>a</span>
+                        <input type="date" class="date-input" value="2025-02-18">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="buttons">
+                <button class="btn btn-qr"><i class="fas fa-qrcode"></i> QR</button>
+                <button class="btn btn-bars"><i class="fas fa-chart-bar"></i> Barras</button>
+                <button class="btn btn-new"><i class="fas fa-plus"></i> Nueva</button>
+            </div>
+        </div>
+
+        <!-- Modal de Código de Barras -->
+        <div id="barcodeModal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h2>Búsqueda por código de barras</h2>
+                <label for="barcodeInput">Escanee el código de barras</label>
+                <input type="text" id="barcodeInput" placeholder="">
+                <button class="btn-search"><i class="fas fa-search"></i> Buscar</button>
+            </div>
+        </div>
+
+
+        <style>
+            .filters-section {
+                margin-top: 20px;
+            }
+
+            .filters-container {
+                display: flex;
+                gap: 15px;
+                flex-wrap: wrap;
+                width: 100%;
+            }
+
+            .filters-container div {
+                flex: 1;
+                min-width: 220px;
+                text-align: center;
+            }
+
+            h3 {
+                color: white;
+                padding: 10px;
+                margin-bottom: 10px;
+                border-radius: 5px;
+                font-size: 16px;
+                text-align: center;
+            }
+
+            .open {
+                background: #28a745;
+            }
+
+            .completed {
+                background: #007bff;
+            }
+
+            .reserved {
+                background: #ffc107;
+            }
+
+            .not-proceed {
+                background: #dc3545;
+            }
+
+            select,
+            input {
+                width: 100%;
+                padding: 8px;
+                margin-top: 5px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                outline: none;
+            }
+
+            .date-group {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .date-group span {
+                padding: 0 5px;
+                font-weight: bold;
+            }
+
+            .date-input {
+                width: 48%;
+                /* Ajusta el tamaño para que queden parejos */
+            }
+
+            .buttons {
+                display: flex;
+                gap: 10px;
+                margin-top: 15px;
+                justify-content: right;
+            }
+
+            .btn {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                padding: 10px 15px;
+                border-radius: 8px;
+                border: none;
+                cursor: pointer;
+                font-weight: bold;
+            }
+
+            .btn-qr {
+                background: #1abc9c;
+                color: white;
+            }
+
+            .btn-bars {
+                background: #3498db;
+                color: white;
+            }
+
+            .btn-new {
+                background: #8e44ad;
+                color: white;
+            }
+        </style>
+
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Folio CUS</th>
+                        <th>Fecha</th>
+                        <th>Tipo de solicitante</th>
+                        <th>Departamento</th>
+                        <th>Motivo</th>
+                        <th>Estatus</th>
+                        <th>Calificación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Las incidencias se cargarán aquí dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <script src="js/mainD.js"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById("sidebar");
+            const content = document.getElementById("content");
+            sidebar.classList.toggle("collapsed");
+            content.classList.toggle("adjusted");
+        }
+
+        function openNewTab(url) {
+            window.open(url, '_blank');
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const rows = document.querySelectorAll(".table-container table tr");
+
+            rows.forEach((row, index) => {
+                if (index === 0) return; // Evita que el encabezado tenga funcionalidad de clic
+
+                row.addEventListener("click", function () {
+                    const folio = this.querySelector("td:nth-child(2)")?.textContent.trim();
+                    if (folio) {
+                        window.open(`detalle_folio.html?folio=${folio}`, '_blank');
+                    }
+                });
+            });
+        });
+
+        // Evento para abrir nueva incidencia en otra pestaña
+        document.querySelector(".btn-new").addEventListener("click", function () {
+            window.open("nueva_incidencia.html", "_blank");
+        });
+        function toggleCheck(button) {
+            button.classList.toggle("checked");
+        }
+
+    </script>
+
+
+    <!-- SCRIPT PARA SECRETARIAS Y JEFATURAS -->
+
+    <script>
+        let dataJSON;
+
+        document.addEventListener("DOMContentLoaded", async function () {
+            await cargarJSON();
+            llenarSecretarias();
+
+            document.getElementById("secretaria").addEventListener("change", function () {
+                llenarCoordinacionesODirecciones(this.value);
+            });
+
+            document.getElementById("coordinacion").addEventListener("change", function () {
+                llenarJefaturas(this.value);
+            });
+        });
+
+        // Cargar JSON externo
+        async function cargarJSON() {
+            try {
+                const response = await fetch("secretarias.json");
+                dataJSON = await response.json();
+            } catch (error) {
+                console.error("Error al cargar el JSON:", error);
+            }
+        }
+
+        // Llenar el filtro de secretarías
+        function llenarSecretarias() {
+            const select = document.getElementById("secretaria");
+            select.innerHTML = '<option value="">Seleccione una secretaría...</option>';
+
+            dataJSON.secretarias.forEach(secretaria => {
+                const option = document.createElement("option");
+                option.value = secretaria.nombre;
+                option.textContent = secretaria.nombre;
+                select.appendChild(option);
+            });
+        }
+
+        // Llenar el filtro de Coordinaciones/Direcciones/Subsecretarías
+        function llenarCoordinacionesODirecciones(secretariaSeleccionada) {
+            const selectCoordinacion = document.getElementById("coordinacion");
+            const selectJefatura = document.getElementById("jefatura");
+
+            selectCoordinacion.innerHTML = '<option value="">Seleccione una coordinación/dirección...</option>';
+            selectJefatura.innerHTML = '<option value="">Seleccione una jefatura...</option>';
+            selectCoordinacion.classList.add("disabled");
+            selectJefatura.classList.add("disabled");
+
+            const secretaria = dataJSON.secretarias.find(s => s.nombre === secretariaSeleccionada);
+
+            if (secretaria) {
+                // Agregar coordinaciones
+                if (secretaria.coordinaciones) {
+                    secretaria.coordinaciones.forEach(coordinacion => {
+                        const option = document.createElement("option");
+                        option.value = coordinacion.nombre;
+                        option.textContent = `${coordinacion.nombre}`;
+                        selectCoordinacion.appendChild(option);
+                    });
+                }
+
+                // Agregar direcciones
+                if (secretaria.direcciones) {
+                    secretaria.direcciones.forEach(direccion => {
+                        const option = document.createElement("option");
+                        option.value = direccion.nombre;
+                        option.textContent = `${direccion.nombre}`;
+                        selectCoordinacion.appendChild(option);
+                    });
+                }
+
+                // Agregar subsecretarías
+                if (secretaria.subsecretarías) {
+                    secretaria.subsecretarías.forEach(subsecretaria => {
+                        const option = document.createElement("option");
+                        option.value = subsecretaria.nombre;
+                        option.textContent = `${subsecretaria.nombre}`;
+                        selectCoordinacion.appendChild(option);
+                    });
+                }
+
+                if (selectCoordinacion.children.length > 1) {
+                    selectCoordinacion.classList.remove("disabled");
+                }
+            }
+        }
+
+        // Llenar el filtro de Jefaturas
+        function llenarJefaturas(coordinacionSeleccionada) {
+            const select = document.getElementById("jefatura");
+            select.innerHTML = '<option value="">Seleccione una jefatura...</option>';
+            select.classList.add("disabled");
+
+            const secretaria = dataJSON.secretarias.find(s => s.nombre === document.getElementById("secretaria").value);
+
+            let elementoSeleccionado = null;
+
+            if (secretaria) {
+                // Buscar en coordinaciones
+                if (secretaria.coordinaciones) {
+                    elementoSeleccionado = secretaria.coordinaciones.find(c => c.nombre === coordinacionSeleccionada);
+                }
+                // Buscar en direcciones
+                if (!elementoSeleccionado && secretaria.direcciones) {
+                    elementoSeleccionado = secretaria.direcciones.find(d => d.nombre === coordinacionSeleccionada);
+                }
+                // Buscar en subsecretarías
+                if (!elementoSeleccionado && secretaria.subsecretarías) {
+                    elementoSeleccionado = secretaria.subsecretarías.find(sub => sub.nombre === coordinacionSeleccionada);
+                }
+
+                // Si tiene jefaturas, las agregamos
+                if (elementoSeleccionado && elementoSeleccionado.jefaturas) {
+                    elementoSeleccionado.jefaturas.forEach(jefatura => {
+                        const option = document.createElement("option");
+                        option.value = jefatura;
+                        option.textContent = jefatura;
+                        select.appendChild(option);
+                    });
+                    select.classList.remove("disabled");
+                }
+            }
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+            const modal = document.getElementById("barcodeModal");
+            const openModalBtn = document.querySelector(".btn-bars"); // Botón de Código de Barras
+            const closeModalBtn = document.querySelector(".close-btn");
+
+            // Mostrar modal cuando se haga clic en el botón
+            openModalBtn.addEventListener("click", function () {
+                modal.style.display = "flex";
+            });
+
+            // Cerrar modal al hacer clic en la "X"
+            closeModalBtn.addEventListener("click", function () {
+                modal.style.display = "none";
+            });
+
+            // Cerrar modal si se hace clic fuera del contenido
+            window.addEventListener("click", function (event) {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
+            });
+        });
+
+    </script>
+
+    <script>
+        
+
+    </script>
+
+
+</body>
+
+</html>

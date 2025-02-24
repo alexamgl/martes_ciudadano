@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incidencia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .incidencia-container {
+            width: 100%;
+            max-width: 900px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .left-buttons,
+        .right-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: bold;
+        }
+
+        .btn-pdf {
+            background: #8e44ad;
+            color: white;
+        }
+
+        .btn-share {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-transfer {
+            background: #2c3e50;
+            color: white;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 20px;
+            padding: 10px;
+            border-bottom: 2px solid #ddd;
+            margin-bottom: 10px;
+        }
+
+        .nav-tabs li {
+            list-style: none;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .nav-tabs li:hover {
+            background: #f0f0f0;
+        }
+
+        .nav-tabs .active {
+            border-bottom: 2px solid red;
+            font-weight: bold;
+        }
+
+        .folio-info {
+            margin: 15px 0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .info-section {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .info-box {
+            width: 48%;
+            background: #f8f8f8;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .info-box h4 {
+            margin-bottom: 10px;
+        }
+
+        .no-editable {
+            color: red;
+            font-weight: bold;
+        }
+
+        .save-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: right;
+        }
+
+        .btn-save {
+            background: green;
+            color: white;
+        }
+
+        .btn-new {
+            background: #1abc9c;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            background: #f8f8f8;
+            border-radius: 5px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .btn-upload {
+            background: #6c5ce7;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .file-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .file-table thead {
+            background: #f0f0f0;
+            text-align: left;
+        }
+
+        .file-table th,
+        .file-table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .file-table tbody tr:hover {
+            background: #f9f9f9;
+        }
+
+        .seguimiento-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .seguimiento-table thead {
+            background: #f0f0f0;
+            text-align: left;
+        }
+
+        .seguimiento-table th,
+        .seguimiento-table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .seguimiento-table tbody tr:hover {
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="incidencia-container">
+        <div class="header-buttons">
+            <div class="left-buttons">
+                <button class="btn btn-pdf"><i class="fas fa-file-pdf"></i> Imprimir (PDF)</button>
+                <button class="btn btn-share"><i class="fas fa-share"></i> Compartir</button>
+            </div>
+            <div class="right-buttons">
+                <button class="btn btn-success"><i class="fas fa-check"></i> Concluido</button>
+                <button class="btn btn-danger"><i class="fas fa-times"></i> No Procede</button>
+                <button class="btn btn-warning"><i class="fas fa-clipboard"></i> Reservado</button>
+                <button class="btn btn-comment"><i class="fas fa-comment"></i> Agregar Comentario</button>
+            </div>
+        </div>
+
+        <ul class="nav-tabs">
+            <li class="active" data-tab="info">Información</li>
+            <li data-tab="archivos">Archivos</li>
+            <li data-tab="seguimiento">Seguimiento</li>
+            <li data-tab="log">Log de Consultas</li>
+        </ul>
+
+        <button class="btn btn-transfer"><i class="fas fa-exchange-alt"></i> Transferir incidencia</button>
+
+        <p class="folio-info">FOLIO: 177776 / CREADO: 18/02/2025 11:51</p>
+
+        <div id="info" class="tab-content active">
+            <h2>Información</h2>
+            <p>Detalles generales de la incidencia.</p>
+        </div>
+
+        <div id="archivos" class="tab-content">
+            <h2>Archivos</h2>
+
+            <!-- Botón para subir archivo -->
+            <button class="btn btn-upload" id="uploadBtn"><i class="fas fa-cloud-upload-alt"></i> Subir archivo</button>
+            <input type="file" id="fileInput" style="display: none;"> <!-- Input oculto -->
+
+            <table class="file-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Tamaño</th>
+                        <th>Usuario</th>
+                        <th>Fecha</th>
+                    </tr>
+                </thead>
+                <tbody id="fileTableBody">
+                    <!-- Aquí se listarán los archivos -->
+                </tbody>
+            </table>
+        </div>
+
+
+
+        <div id="seguimiento" class="tab-content">
+            <h2>Seguimiento del incidente</h2>
+
+            <table class="seguimiento-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Estatus</th>
+                        <th>Fecha</th>
+                        <th>Usuario</th>
+                        <th>Comentarios</th>
+                    </tr>
+                </thead>
+                <tbody id="seguimientoTableBody">
+                    <tr>
+                        <td>1</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <div id="log" class="tab-content">
+            <h2>Log de Consultas</h2>
+            <p>Historial de consultas y modificaciones realizadas.</p>
+        </div>
+
+        <div class="save-buttons">
+            <button class="btn btn-save"><i class="fas fa-save"></i> Guardar</button>
+            <button class="btn btn-new"><i class="fas fa-plus"></i> Nueva Incidencia</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            // Obtener parámetros de la URL para saber qué folio cargar
+            const urlParams = new URLSearchParams(window.location.search);
+            const folio = urlParams.get("folio");
+    
+            if (!folio) {
+                alert("No se encontró un folio válido.");
+                return;
+            }
+    
+            try {
+                // Realizar la solicitud para obtener la información de la incidencia
+                const response = await fetch(`obtener_incidencia.php?folio=${folio}`);
+                const data = await response.json();
+    
+                if (data.error) {
+                    alert(data.error);
+                    return;
+                }
+    
+                // Asignar los datos obtenidos a los elementos correspondientes
+                document.querySelector(".folio-info").textContent = `FOLIO: ${data.folio_cus} / CREADO: ${data.fecha_creacion}`;
+    
+                // Mostrar la información general de la incidencia
+                document.getElementById("info").innerHTML = `
+                    <h2>Información</h2>
+                    <p><strong>Tipo de Solicitante:</strong> ${data.tipo_solicitante}</p>
+                    <p><strong>Origen:</strong> ${data.origen}</p>
+                    <p><strong>Motivo:</strong> ${data.motivo}</p>
+                    <p><strong>Secretaría:</strong> ${data.secretaria}</p>
+                    <p><strong>Coordinación:</strong> ${data.coordinacion || "N/A"}</p>
+                    <p><strong>Departamento:</strong> ${data.departamento || "N/A"}</p>
+                    <p><strong>Tipo de Incidencia:</strong> ${data.tipo_incidencia}</p>
+                    <p><strong>Colonia:</strong> ${data.colonia || "N/A"}</p>
+                    <p><strong>Dirección:</strong> ${data.direccion || "N/A"}</p>
+                    <p><strong>Referencia:</strong> ${data.referencia || "N/A"}</p>
+                    <p><strong>Comentarios:</strong> ${data.comentarios}</p>
+                `;
+    
+                // Cargar seguimiento en la tabla
+                const seguimientoTableBody = document.getElementById("seguimientoTableBody");
+                seguimientoTableBody.innerHTML = ""; // Limpiar tabla antes de insertar
+                if (data.seguimiento && data.seguimiento.length > 0) {
+                    data.seguimiento.forEach((item, index) => {
+                        const row = document.createElement("tr");
+                        row.innerHTML = `
+                            <td>${index + 1}</td>
+                            <td>${item.estatus}</td>
+                            <td>${item.fecha}</td>
+                            <td>${item.usuario}</td>
+                            <td>${item.comentarios || ""}</td>
+                        `;
+                        seguimientoTableBody.appendChild(row);
+                    });
+                } else {
+                    seguimientoTableBody.innerHTML = `<tr><td colspan="5">No hay registros de seguimiento.</td></tr>`;
+                }
+    
+                // Cargar archivos en la tabla de archivos
+                const fileTableBody = document.getElementById("fileTableBody");
+                fileTableBody.innerHTML = ""; // Limpiar tabla antes de insertar
+                if (data.archivos && data.archivos.length > 0) {
+                    data.archivos.forEach((archivo, index) => {
+                        const row = document.createElement("tr");
+                        row.innerHTML = `
+                            <td>${index + 1}</td>
+                            <td>${archivo.nombre}</td>
+                            <td>${(archivo.tamano / 1024).toFixed(2)} KB</td>
+                            <td>${archivo.usuario}</td>
+                            <td>${archivo.fecha}</td>
+                        `;
+                        fileTableBody.appendChild(row);
+                    });
+                } else {
+                    fileTableBody.innerHTML = `<tr><td colspan="5">No hay archivos adjuntos.</td></tr>`;
+                }
+    
+            } catch (error) {
+                console.error("Error al obtener los datos:", error);
+                alert("Hubo un problema al cargar la información.");
+            }
+        });
+    </script>
+    
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const tabs = document.querySelectorAll(".nav-tabs li");
+            const contents = document.querySelectorAll(".tab-content");
+
+            tabs.forEach(tab => {
+                tab.addEventListener("click", () => {
+                    // Remueve la clase 'active' de todas las pestañas
+                    tabs.forEach(t => t.classList.remove("active"));
+                    tab.classList.add("active");
+
+                    // Oculta todos los contenidos y muestra solo el activo
+                    const target = tab.getAttribute("data-tab");
+                    contents.forEach(content => {
+                        content.classList.remove("active");
+                        if (content.id === target) {
+                            content.classList.add("active");
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const uploadBtn = document.getElementById("uploadBtn");
+            const fileInput = document.getElementById("fileInput");
+            const fileTableBody = document.getElementById("fileTableBody");
+
+            // Simulación de usuario (esto lo puedes cambiar dinámicamente)
+            const usuario = "Admin";
+
+            // Al hacer clic en el botón, activamos el input file oculto
+            uploadBtn.addEventListener("click", () => {
+                fileInput.click();
+            });
+
+            // Evento cuando el usuario selecciona un archivo
+            fileInput.addEventListener("change", (event) => {
+                const files = event.target.files;
+
+                if (files.length > 0) {
+                    for (let i = 0; i < files.length; i++) {
+                        const file = files[i];
+                        agregarArchivoATabla(file);
+                    }
+                }
+
+                // Limpiar el input para poder seleccionar el mismo archivo nuevamente
+                fileInput.value = "";
+            });
+
+            // Función para agregar el archivo a la tabla
+            function agregarArchivoATabla(file) {
+                const rowCount = fileTableBody.rows.length + 1; // Número de archivos
+                const row = document.createElement("tr");
+
+                // Obtener fecha actual en formato 'dd/mm/yyyy HH:mm'
+                const fecha = new Date();
+                const fechaFormateada = `${fecha.getDate().toString().padStart(2, '0')}/${(fecha.getMonth() + 1).toString().padStart(2, '0')}/${fecha.getFullYear()} ${fecha.getHours()}:${fecha.getMinutes()}`;
+
+                row.innerHTML = `
+                <td>${rowCount}</td>
+                <td>${file.name}</td>
+                <td>${(file.size / 1024).toFixed(2)} KB</td>
+                <td>${usuario}</td>
+                <td>${fechaFormateada}</td>
+            `;
+
+                fileTableBody.appendChild(row);
+            }
+        });
+        document.addEventListener("DOMContentLoaded", () => {
+            const seguimientoTableBody = document.getElementById("seguimientoTableBody");
+
+            function agregarSeguimiento(estatus, usuario, comentarios) {
+                const rowCount = seguimientoTableBody.rows.length + 1;
+                const fecha = new Date();
+                const fechaFormateada = `${fecha.getHours()}:${fecha.getMinutes().toString().padStart(2, '0')} ${fecha.getDate().toString().padStart(2, '0')}/${(fecha.getMonth() + 1).toString().padStart(2, '0')}/${fecha.getFullYear()}`;
+
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                <td>${rowCount}</td>
+                <td>${estatus}</td>
+                <td>${fechaFormateada}</td>
+                <td>${usuario}</td>
+                <td>${comentarios || ''}</td>
+            `;
+
+                seguimientoTableBody.appendChild(row);
+            }
+
+            // Ejemplo de uso   :
+            // agregarSeguimiento("EN PROCESO", "Juan Pérez", "Revisando la incidencia");
+        });
+    </script>
+
+
+</body>
+
+</html>
