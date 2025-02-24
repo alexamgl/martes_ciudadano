@@ -38,7 +38,7 @@ document.getElementById("btnBuscar").addEventListener("click", function () {
 });
 
 $.ajax({
-    url: 'http://localhost/sec_particular/php/proxy.php', // O la URL de tu servidor proxy
+    url: 'http://localhost/sec_particular/martes_ciudadano/php/proxy.php', // O la URL de tu servidor proxy
     method: 'GET',
     success: function(response) {
 
