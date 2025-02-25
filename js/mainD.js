@@ -39,13 +39,15 @@ function renderizarTabla(incidencias) {
     tbody.innerHTML = ""; // Limpiar la tabla antes de llenarla
 
     incidencias.forEach((incidencia, index) => {
+        let ciudadano = incidencia.nombre ? `${incidencia.nombre} ${incidencia.primer_apellido} ${incidencia.segundo_apellido}` : "No registrado";
+
         let fila = document.createElement("tr");
 
         fila.innerHTML = `
             <td>${index + 1}</td>
             <td>${incidencia.folio_cus}</td>
             <td>${new Date(incidencia.fecha_creacion).toLocaleDateString()}</td>
-            <td>${incidencia.tipo_solicitante}</td>
+            <td>${ciudadano}</td>
             <td>${incidencia.departamento}</td>
             <td>${incidencia.motivo}</td>
             <td>${incidencia.estatus}</td>
@@ -56,6 +58,7 @@ function renderizarTabla(incidencias) {
     });
 }
 
+
 function filtrarIncidencias() {
     console.log("Filtrando incidencias...");
 
@@ -64,49 +67,56 @@ function filtrarIncidencias() {
     let origen = document.getElementById("origenFilter").value.trim();
     let motivo = document.getElementById("motivoFilter").value.trim();
     let departamento = document.getElementById("jefatura").value.trim();
-    let nombreTelefono = document.getElementById("nombreTelefonoFilter").value.trim().toLowerCase();
-    let apellidoPaterno = document.getElementById("apellidoPaternoFilter").value.trim().toLowerCase();
-    let apellidoMaterno = document.getElementById("apellidoMaternoFilter").value.trim().toLowerCase();
+    let coordinacion = document.getElementById("coordinacion").value.trim(); // Nuevo filtro
+    let nombreFilter = document.getElementById("nombreTelefonoFilter").value.trim().toLowerCase();
+    let apellidoPaternoFilter = document.getElementById("apellidoPaternoFilter").value.trim().toLowerCase();
+    let apellidoMaternoFilter = document.getElementById("apellidoMaternoFilter").value.trim().toLowerCase();
     let fechaInicio = document.getElementById("fechaInicioFilter").value;
     let fechaFin = document.getElementById("fechaFinFilter").value;
 
     let registrosMaximos = document.getElementById("registrosFilter").value;
     let limiteRegistros = registrosMaximos.includes("100") ? 100 :
-        registrosMaximos.includes("200") ? 200 :
-            registrosMaximos.includes("400") ? 400 :
-                incidenciasGlobal.length;
+                          registrosMaximos.includes("200") ? 200 :
+                          registrosMaximos.includes("400") ? 400 :
+                          incidenciasGlobal.length;
 
     console.log("Estatus:", estatusSeleccionado);
     console.log("Secretaría:", secretaria);
+    console.log("Coordinación:", coordinacion);
     console.log("Origen:", origen);
     console.log("Motivo:", motivo);
     console.log("Departamento:", departamento);
-    console.log("Nombre/Teléfono:", nombreTelefono);
-    console.log("Apellido Paterno:", apellidoPaterno);
-    console.log("Apellido Materno:", apellidoMaterno);
+    console.log("Nombre:", nombreFilter);
+    console.log("Apellido Paterno:", apellidoPaternoFilter);
+    console.log("Apellido Materno:", apellidoMaternoFilter);
     console.log("Fecha Inicio:", fechaInicio);
     console.log("Fecha Fin:", fechaFin);
 
     let incidenciasFiltradas = incidenciasGlobal.filter(incidencia => {
         let fechaIncidencia = new Date(incidencia.fecha_creacion).toISOString().split('T')[0];
 
+        let nombreCompleto = `${incidencia.nombre ?? ""} ${incidencia.primer_apellido ?? ""} ${incidencia.segundo_apellido ?? ""}`.trim().toLowerCase();
+
         return (
             (estatusSeleccionado === "" || incidencia.estatus.toLowerCase().includes(estatusSeleccionado.toLowerCase())) &&
             (secretaria === "" || incidencia.secretaria?.toLowerCase() === secretaria.toLowerCase()) &&
+            (coordinacion === "" || incidencia.coordinacion?.toLowerCase() === coordinacion.toLowerCase()) && // Nuevo filtro de Coordinación
             (origen === "Orígen..." || incidencia.origen?.toLowerCase() === origen.toLowerCase()) &&
             (motivo === "Motivos..." || incidencia.motivo?.toLowerCase() === motivo.toLowerCase()) &&
             (departamento === "" || incidencia.departamento?.toLowerCase() === departamento.toLowerCase()) &&
-            (nombreTelefono === "" || incidencia.folio_cus.toLowerCase().includes(nombreTelefono)) &&
-            (apellidoPaterno === "" || incidencia.tipo_solicitante?.toLowerCase().includes(apellidoPaterno)) &&
-            (apellidoMaterno === "" || incidencia.tipo_solicitante?.toLowerCase().includes(apellidoMaterno)) &&
+            (nombreFilter === "" || (incidencia.nombre?.toLowerCase() || "").includes(nombreFilter)) &&
+            (apellidoPaternoFilter === "" || (incidencia.primer_apellido?.toLowerCase() || "").includes(apellidoPaternoFilter)) &&
+            (apellidoMaternoFilter === "" || (incidencia.segundo_apellido?.toLowerCase() || "").includes(apellidoMaternoFilter)) &&
             (!fechaInicio || !fechaFin || (fechaIncidencia >= fechaInicio && fechaIncidencia <= fechaFin))
         );
     });
 
     console.log("Incidencias Filtradas:", incidenciasFiltradas.length);
-
+    
     renderizarTabla(incidenciasFiltradas.slice(0, limiteRegistros));
 }
+
+
 
 
 document.getElementById("secretaria").addEventListener("change", filtrarIncidencias);
@@ -119,6 +129,8 @@ document.getElementById("apellidoMaternoFilter").addEventListener("input", filtr
 document.getElementById("fechaInicioFilter").addEventListener("change", filtrarIncidencias);
 document.getElementById("fechaFinFilter").addEventListener("change", filtrarIncidencias);
 document.getElementById("registrosFilter").addEventListener("change", filtrarIncidencias);
+document.getElementById("coordinacion").addEventListener("change", filtrarIncidencias);
+
 
 // 📌 Lógica para seleccionar el estatus
 document.querySelectorAll(".filter-btn").forEach(button => {
