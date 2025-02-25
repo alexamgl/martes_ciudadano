@@ -38,7 +38,7 @@ document.getElementById("btnBuscar").addEventListener("click", function () {
 });
 
 $.ajax({
-    url: 'http://localhost/sec_particular/martes_ciudadano/php/proxy.php', // O la URL de tu servidor proxy
+    url: 'http://localhost/martes_ciudadano/php/proxy.php', // O la URL de tu servidor proxy
     method: 'GET',
     success: function(response) {
 
@@ -117,3 +117,53 @@ document.querySelector(".btn-create").addEventListener("click", function() {
     })
     .catch(error => console.error("Error al crear incidencia:", error));
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Validación para el campo "Folio": solo permite números.
+    const inputFolio = document.getElementById("inputFolio");
+    inputFolio.addEventListener("input", function() {
+      this.value = this.value.replace(/[^0-9]/g, '');
+    });
+  
+    // Función auxiliar para eliminar acentos y convertir a mayúsculas.
+    // Permite todos los caracteres, solo remueve tildes.
+    function normalizeText(text) {
+      return text
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toUpperCase();
+    }
+  
+    // Validación para el campo "INE": convierte a mayúsculas y elimina acentos.
+    const ineInput = document.querySelector("input[placeholder='Ingrese INE']");
+    if (ineInput) {
+      ineInput.addEventListener("input", function() {
+        this.value = normalizeText(this.value);
+      });
+    }
+  
+    // Validación para el campo "Dirección": convierte a mayúsculas y elimina acentos.
+    const direccionInput = document.querySelector("input[placeholder='Ingrese dirección']");
+    if (direccionInput) {
+      direccionInput.addEventListener("input", function() {
+        this.value = normalizeText(this.value);
+      });
+    }
+  
+    // Validación para el campo "Referencia": convierte a mayúsculas y elimina acentos.
+    const referenciaInput = document.querySelector("input[placeholder='Ingrese referencia']");
+    if (referenciaInput) {
+      referenciaInput.addEventListener("input", function() {
+        this.value = normalizeText(this.value);
+      });
+    }
+  
+    // Validación para el campo "Comentarios": convierte a mayúsculas y elimina acentos.
+    const comentariosTextarea = document.querySelector("textarea[placeholder='Ingrese comentarios']");
+    if (comentariosTextarea) {
+      comentariosTextarea.addEventListener("input", function() {
+        this.value = normalizeText(this.value);
+      });
+    }
+  });
+  

@@ -44,3 +44,4 @@ function cargarIncidencias() {
 
 // 📌 Cargar la tabla cuando la página termine de cargar
 document.addEventListener("DOMContentLoaded", cargarIncidencias);
+

@@ -340,8 +340,8 @@
     <div class="sidebar" id="sidebar">
         <div class="logo">LOGO</div>
         <ul class="nav">
-            <li onclick="openNewTab('dashboard.html')"><i class="fas fa-home"></i><span> Dashboard</span></li>
-            <li onclick="openNewTab('usuarios.html')"><i class="fas fa-users"></i><span> Usuarios</span></li>
+            <li onclick="openNewTab('dashboard2.html')"><i class="fas fa-home"></i><span> Inicio</span></li>
+            <li onclick="openNewTab('dashboard2.html')"><i class="fas fa-users"></i><span> Incidencias</span></li>
             <li onclick="openNewTab('reportes.html')"><i class="fas fa-file-alt"></i><span> Reportes</span></li>
         </ul>
         <div class="logout"><i class="fas fa-sign-out-alt"></i><span> Cerrar sesión</span></div>
@@ -362,7 +362,7 @@
                     <select id="secretaria">
                         <option value="">Seleccione una secretaría...</option>
                     </select>
-                    <select>
+                    <select id="origenFilter">
                         <option>Orígen...</option>
                         <option>App Movil</option>
                         <option>Brigadistas Juntos Contigo</option>
@@ -379,7 +379,7 @@
                         <option>Whatsapp</option>
                         <option>072 (Inactivo)</option>
                     </select>
-                    <input type="text" placeholder="Escribe el nombre, teléfono del ciudadano">
+                    <input type="text" placeholder="Escribe el nombre, teléfono del ciudadano" id="nombreTelefonoFilter">
                 </div>
 
                 <div>
@@ -389,7 +389,7 @@
                     <select id="coordinacion" class="disabled">
                         <option value="">Seleccione una coordinación/dirección...</option>
                     </select>
-                    <select>
+                    <select id="motivoFilter">
                         <option>Motivos...</option>
                         <option>Agradecimiento</option>
                         <option>Citas</option>
@@ -401,7 +401,7 @@
 
 
                     </select>
-                    <input type="text" placeholder="Escribe el apellido paterno">
+                    <input type="text" placeholder="Escribe el apellido paterno" id="apellidoPaternoFilter">
                 </div>
 
                 <div>
@@ -411,13 +411,13 @@
                     <select id="jefatura" class="disabled">
                         <option value="">Seleccione un departamento...</option>
                     </select>
-                    <select>
+                    <select id="registrosFilter">
                         <option>Últimos 100 registros</option>
                         <option>Últimos 200 registros</option>
                         <option>Últimos 400 registros</option>
                         <option>Todos</option>
                     </select>
-                    <input type="text" placeholder="Escribe el apellido materno">
+                    <input type="text" placeholder="Escribe el apellido materno" id="apellidoMaternoFilter">
                 </div>
 
                 <div>
@@ -428,9 +428,9 @@
                         <option>Tipos de Incidencias...</option>
                     </select>
                     <div class="date-group">
-                        <input type="date" class="date-input" value="2025-01-19">
+                        <input type="date" class="date-input" value="2025-01-19" id="fechaInicioFilter">
                         <span>a</span>
-                        <input type="date" class="date-input" value="2025-02-18">
+                        <input type="date" class="date-input" value="2025-02-18" id="fechaFinFilter">
                     </div>
                 </div>
             </div>
