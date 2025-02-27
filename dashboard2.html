@@ -43,7 +43,29 @@
         .sidebar .logo {
             text-align: center;
             margin-bottom: 20px;
+            padding: 10px;
+            /* Añade un poco de espacio interno */
         }
+
+        .sidebar .logo img {
+            width: 100%;
+            /* Ocupará todo el ancho disponible */
+            max-width: 300px;
+            /* Mayor tamaño permitido */
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            /* Mantener centrado */
+        }
+
+        /* Ajuste cuando la barra lateral está colapsada */
+        .sidebar.collapsed .logo img {
+            width: 70px;
+            /* Aumentamos el tamaño en el modo colapsado */
+            max-width: 70px;
+        }
+
+
 
         .sidebar .nav li {
             display: flex;
@@ -338,11 +360,13 @@
 <body>
 
     <div class="sidebar" id="sidebar">
-        <div class="logo">LOGO</div>
+        <div class="logo">
+            <img src="img/sjr.png" alt="Logo">
+        </div>
         <ul class="nav">
             <li onclick="openNewTab('dashboard2.html')"><i class="fas fa-home"></i><span> Inicio</span></li>
-            <li onclick="openNewTab('dashboard2.html')"><i class="fas fa-users"></i><span> Incidencias</span></li>
-            <li onclick="openNewTab('reportes.html')"><i class="fas fa-file-alt"></i><span> Reportes</span></li>
+            <li onclick="openNewTab('dashboard2.html')"><i class="fas fa-users"></i><span> Solicitudes</span></li>
+            <li onclick="openNewTab('listado_incidencias.html')"><i class="fas fa-file-alt"></i><span> Crear Incidencia</li>
         </ul>
         <div class="logout"><i class="fas fa-sign-out-alt"></i><span> Cerrar sesión</span></div>
     </div>
@@ -773,7 +797,7 @@
     </script>
 
     <script>
-        
+
 
     </script>
 
