@@ -54,6 +54,12 @@ function renderizarTabla(incidencias) {
             <td>Pendiente de calificación</td>
         `;
 
+        // 📌 Guardar la incidencia en localStorage y redirigir
+        fila.addEventListener("click", () => {
+            localStorage.setItem("incidenciaSeleccionada", JSON.stringify(incidencia)); // Guardar datos
+            window.location.href = "detalle_folio.html"; // Redirigir sin usar la URL
+        });
+
         tbody.appendChild(fila);
     });
 }
@@ -115,9 +121,6 @@ function filtrarIncidencias() {
     
     renderizarTabla(incidenciasFiltradas.slice(0, limiteRegistros));
 }
-
-
-
 
 document.getElementById("secretaria").addEventListener("change", filtrarIncidencias);
 document.getElementById("origenFilter").addEventListener("change", filtrarIncidencias);
