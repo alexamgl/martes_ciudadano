@@ -12,7 +12,7 @@ document.getElementById("btnBuscar").addEventListener("click", function () {
         return;
     }
 
-    let folioCompleto = `CUS-${folioUsuario}`; // Agregar el prefijo automáticamente
+    let folioCompleto = `${folioUsuario}`; // Agregar el prefijo automáticamente
 
     fetch("https://sanjuandelrio.gob.mx/tramites-sjr/Api/principal/buscar_ciudadano", {
         method: "POST",
@@ -20,7 +20,7 @@ document.getElementById("btnBuscar").addEventListener("click", function () {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}` // Se obtiene el token desde localStorage
         },
-        body: JSON.stringify({ folio: folioCompleto }) // Se envía el folio con el prefijo
+        body: JSON.stringify({ curp: folioCompleto }) // Se envía el folio con el prefijo
     })
         .then(response => response.json())
         .then(data => {
@@ -120,10 +120,10 @@ document.querySelector(".btn-create").addEventListener("click", function() {
 
 document.addEventListener("DOMContentLoaded", function() {
     // Validación para el campo "Folio": solo permite números.
-    const inputFolio = document.getElementById("inputFolio");
-    inputFolio.addEventListener("input", function() {
-      this.value = this.value.replace(/[^0-9]/g, '');
-    });
+    //const inputFolio = document.getElementById("inputFolio");
+    //inputFolio.addEventListener("input", function() {
+    //  this.value = this.value.replace(/[^0-9]/g, '');
+    //});
   
     // Función auxiliar para eliminar acentos y convertir a mayúsculas.
     // Permite todos los caracteres, solo remueve tildes.
@@ -132,6 +132,22 @@ document.addEventListener("DOMContentLoaded", function() {
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
         .toUpperCase();
+    }
+
+    function validateCURP(curp) {
+        return curp
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "") // elimina acentos
+          .toUpperCase() // convierte a mayúsculas
+          .replace(/[^A-Z0-9]/g, ""); // elimina caracteres no permitidos
+      }
+      
+
+    const inputFolio = document.querySelector("input[placeholder='Ingrese CURP']");
+    if (inputFolio) {
+        inputFolio.addEventListener("input", function() {
+        this.value = validateCURP(this.value);
+      });
     }
   
     // Validación para el campo "INE": convierte a mayúsculas y elimina acentos.
