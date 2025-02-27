@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración de Incidencia</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ====== ESTILOS GENERALES ====== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .config-container {
+            width: 90%;
+            max-width: 1100px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ====== HEADER ====== */
+        .config-header {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .config-btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .config-btn-save {
+            background: #1abc9c;
+            color: white;
+        }
+
+        .config-btn-cancel {
+            background: #e74c3c;
+            color: white;
+        }
+
+        /* ====== FORMULARIO ====== */
+        .config-content {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .config-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .config-label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .config-required {
+            color: red;
+        }
+
+        .config-input, 
+        .config-select, 
+        .config-textarea {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            outline: none;
+            font-size: 14px;
+            background: #f8f9fa;
+        }
+
+        .config-textarea {
+            resize: none;
+            height: 60px;
+        }
+
+        /* ====== SWITCHES ====== */
+        .config-switch-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        .config-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 25px;
+        }
+
+        .config-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .config-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.3s;
+            border-radius: 25px;
+        }
+
+        .config-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+
+        .config-switch input:checked + .config-slider {
+            background-color: #1abc9c;
+        }
+
+        .config-switch input:checked + .config-slider:before {
+            transform: translateX(24px);
+        }
+
+        .config-switch-label {
+            font-weight: bold;
+            color: #333;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        /* ====== RESPONSIVE ====== */
+        @media (max-width: 768px) {
+            .config-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="config-container">
+        <div class="config-header">
+            <button class="config-btn config-btn-save"><i class="fas fa-save"></i> Guardar</button>
+            <button class="config-btn config-btn-cancel"><i class="fas fa-times"></i> Cancelar</button>
+        </div>
+
+        <div class="config-content">
+            <div class="config-group">
+                <label class="config-label">Secretaría <span class="config-required">*</span></label>
+                <select class="config-select" id="config-secretaria">
+                    <option value="">Secretarías...</option>
+                </select>
+            </div>
+
+            <div class="config-group">
+                <label class="config-label">Coordinación <span class="config-required">*</span></label>
+                <select class="config-select" id="config-coordinacion">
+                    <option value="">Coordinaciones...</option>
+                </select>
+            </div>
+
+            <div class="config-group">
+                <label class="config-label">Departamento <span class="config-required">*</span></label>
+                <select class="config-select" id="config-departamento">
+                    <option value="">Departamentos...</option>
+                </select>
+            </div>
+
+            <div class="config-group">
+                <label class="config-label">Nombre <span class="config-required">*</span></label>
+                <input type="text" class="config-input" id="config-nombre" placeholder="Ingrese nombre">
+            </div>
+
+            <div class="config-group config-switch-group">
+                <label class="config-label">Estatus <span class="config-required">*</span></label>
+                <label class="config-switch">
+                    <input type="checkbox" id="config-estatus">
+                    <span class="config-slider round"></span>
+                </label>
+                <span class="config-switch-label" id="config-estatus-label">INACTIVO</span>
+            </div>
+
+            <div class="config-group config-switch-group">
+                <label class="config-label">Uso móvil <span class="config-required">*</span></label>
+                <label class="config-switch">
+                    <input type="checkbox" id="config-usoMovil">
+                    <span class="config-slider round"></span>
+                </label>
+                <span class="config-switch-label" id="config-usoMovil-label">NO</span>
+            </div>
+
+            <div class="config-group config-switch-group">
+                <label class="config-label">Notificar a la policía <span class="config-required">*</span></label>
+                <label class="config-switch">
+                    <input type="checkbox" id="config-notificarPolicia">
+                    <span class="config-slider round"></span>
+                </label>
+                <span class="config-switch-label" id="config-notificarPolicia-label">NO</span>
+            </div>
+
+            <div class="config-group">
+                <label class="config-label">Días</label>
+                <input type="text" class="config-input" id="config-dias" placeholder="Ingrese días">
+            </div>
+
+            <div class="config-group">
+                <label class="config-label">Descripción <span class="config-required">*</span></label>
+                <textarea class="config-textarea" id="config-descripcion" placeholder="Ingrese una descripción"></textarea>
+            </div>
+
+            <div class="config-group">
+                <label class="config-label">Dirección <span class="config-required">*</span></label>
+                <input type="text" class="config-input" id="config-direccion" placeholder="Ingrese dirección">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            ["estatus", "usoMovil", "notificarPolicia"].forEach(id => {
+                document.getElementById(`config-${id}`).addEventListener("change", function () {
+                    document.getElementById(`config-${id}-label`).textContent = this.checked ? "SÍ" : "NO";
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

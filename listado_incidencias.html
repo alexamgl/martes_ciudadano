@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Incidencias</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ====== ESTILOS GENERALES ====== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .gestor-container {
+            width: 100%;
+            max-width: 1200px;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ====== FILTROS ====== */
+        .gestor-filtros {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .gestor-filtros select,
+        .gestor-filtros input {
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            outline: none;
+            font-size: 14px;
+            background: #f8f9fa;
+            width: 220px;
+            transition: 0.3s;
+        }
+
+        .gestor-filtros input:focus,
+        .gestor-filtros select:focus {
+            border-color: #7b5efc;
+            box-shadow: 0 0 5px rgba(123, 94, 252, 0.4);
+        }
+
+        .gestor-boton-nuevo {
+            background: #7b5efc;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+        .gestor-boton-nuevo:hover {
+            background: #6348d9;
+        }
+
+        /* ====== TABLA ====== */
+        .gestor-tabla-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+
+        .gestor-tabla {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        .gestor-tabla th, 
+        .gestor-tabla td {
+            text-align: left;
+            padding: 14px;
+            font-size: 14px;
+        }
+
+        .gestor-tabla th {
+            background: #f8f9fa;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .gestor-tabla td {
+            border-bottom: 1px solid #ddd;
+            background: white;
+        }
+
+        .gestor-tabla tr:hover td {
+            background: #eef5ff;
+        }
+
+        /* ====== ICONOS DE ESTATUS ====== */
+        .gestor-estatus {
+            font-weight: bold;
+        }
+
+        .gestor-activo {
+            color: #1abc9c;
+        }
+
+        .gestor-inactivo {
+            color: red;
+        }
+
+        .gestor-icono {
+            font-size: 14px;
+        }
+
+        .gestor-botones {
+            display: flex;
+            gap: 10px;
+        }
+
+        .gestor-btn-editar, .gestor-btn-eliminar {
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        .gestor-btn-editar {
+            background: #2d3e5d;
+            color: white;
+        }
+
+        .gestor-btn-editar:hover {
+            background: #1b2538;
+        }
+
+        .gestor-btn-eliminar {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .gestor-btn-eliminar:hover {
+            background: #c0392b;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .gestor-filtros {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .gestor-filtros select,
+            .gestor-filtros input {
+                width: 100%;
+            }
+
+            .gestor-boton-nuevo {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gestor-container">
+        
+        <!-- Filtros -->
+        <div class="gestor-filtros">
+            <select id="gestor-secretaria">
+                <option value="">Secretarías...</option>
+            </select>
+
+            <select id="gestor-coordinacion">
+                <option value="">Coordinaciones...</option>
+            </select>
+
+            <select id="gestor-departamento">
+                <option value="">Departamentos...</option>
+            </select>
+
+            <select id="gestor-estatus">
+                <option value="">Activos</option>
+                <option value="inactivos">Inactivos</option>
+            </select>
+
+            <input type="text" id="gestor-busqueda" placeholder="Escribe y presiona enter">
+
+            <button class="gestor-boton-nuevo" onclick="window.open('agregar_incidencia.html', '_blank');">
+                <i class="fas fa-plus"></i> Nuevo
+            </button>
+            
+        </div>
+
+        <!-- Tabla -->
+        <div class="gestor-tabla-container">
+            <table class="gestor-tabla">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Secretaría - Coordinación - Departamento</th>
+                        <th>Móvil</th>
+                        <th>Notificar Policía</th>
+                        <th>Estatus</th>
+                        <th>Días</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>ABANDERAMIENTO</td>
+                        <td>SECRETARÍA DE SEGURIDAD PÚBLICA MUNICIPAL - DIRECCIÓN DE HECHOS DE TRÁNSITO - HECHOS DE TRÁNSITO - 
+                            <span class="gestor-estatus gestor-activo">(Activo)</span>
+                        </td>
+                        <td><span class="gestor-inactivo"><i class="fas fa-times gestor-icono"></i> NO</span></td>
+                        <td><span class="gestor-inactivo"><i class="fas fa-times gestor-icono"></i> NO</span></td>
+                        <td><span class="gestor-activo"><i class="fas fa-check gestor-icono"></i> Activo</span></td>
+                        <td>3</td>
+                        <td class="gestor-botones">
+                            <button class="gestor-btn-editar"><i class="fas fa-pen"></i></button>
+                            <button class="gestor-btn-eliminar"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</body>
+</html>
