@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nueva Incidencia</title>
+    <title>Nueva Solicitud</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -115,13 +115,13 @@
 <body>
 
     <div class="incidencia-container">
-        <h4>Folio Clave Única Sanjuanense <span style="color: red;">*</span></h4>
+        <h4>CURP del solicitante <span style="color: red;">*</span></h4>
         <div class="info-box" style="display: flex; align-items: center;">
             <span
                 style="background: #1abc9c; color: white; padding: 8px 12px; border-radius: 5px; font-weight: bold; margin-right: 5px;">
-                CUS -
+                CURP
             </span>
-            <input type="text" id="inputFolio" placeholder="Ingrese folio" style="flex: 1;">
+            <input type="text" id="inputFolio" placeholder="Ingrese CURP" style="flex: 1;">
         </div>
         <div class="bottom-buttons">
             <button id="btnBuscar" class="btn btn-continue"><i class="fas"></i>Buscar Ciudadano</button>
@@ -152,21 +152,16 @@
                 <label>Correo Electrónico (Opcional)</label>
                 <input type="email" id="correo" placeholder="Ingrese correo" readonly>
             </div>
-            <div class="info-box">
-                <label>INE (Opcional)</label>
-                <input type="text" placeholder="Ingrese INE">
-            </div>
         </div>
 
 
-        <!-- CHECKBOX INCLUIR MAPA -->
-        <div class="info-section">
-            <div class="info-box">
-                <input type="checkbox" id="incluirMapa">
-                <label for="incluirMapa">Incluir Mapa</label>
-            </div>
-        </div>
-
+<div class="info-section">
+    <div class="info-box" style="flex: 2;">
+        <label>Petición específica <span style="color: red;">*</span></label>
+        <textarea rows="3" placeholder="Ingrese comentarios"></textarea>
+    </div>
+</div>
+<br><br>
         <!-- NUEVA SECCIÓN DE DATOS DEL INCIDENTE -->
         <div class="incident-section">
             <h4>Datos del incidente</h4>
@@ -249,9 +244,9 @@
 
             <div class="info-section">
                 <div class="info-box">
-                    <label>Tipo de Incidencia <span style="color: red;">*</span></label>
+                    <label>Tipo de incidencia <span style="color: red;">*</span></label>
                     <select id="tipo_incidencia">
-                        <option>Seleccione...</option>
+                        <option value="Seleccione...">Seleccione...</option>
                     </select>
                 </div>
                 <div class="info-box">
@@ -276,12 +271,7 @@
                 </div>
             </div>
 
-            <div class="info-section">
-                <div class="info-box" style="flex: 2;">
-                    <label>Comentarios <span style="color: red;">*</span></label>
-                    <textarea rows="3" placeholder="Ingrese comentarios"></textarea>
-                </div>
-            </div>
+            
         </div>
 
         <!-- BOTÓN "CREAR INCIDENCIA" -->
