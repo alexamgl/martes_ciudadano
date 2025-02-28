@@ -209,6 +209,673 @@
         .seguimiento-table tbody tr:hover {
             background: #f9f9f9;
         }
+
+        /* Fondo oscuro semitransparente */
+        .modal-compartir {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Contenedor del modal */
+        .modal-compartir-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+            position: relative;
+            animation: modalFadeIn 0.3s ease-in-out;
+        }
+
+        /* Animación de entrada */
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Título del modal */
+        .modal-compartir-title {
+            margin-bottom: 10px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        /* Texto informativo */
+        .modal-compartir-text {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        /* Campo de entrada */
+        .modal-compartir-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        /* Botones del modal */
+        .modal-compartir-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        /* Estilos generales para botones */
+        .modal-compartir-btn {
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: bold;
+        }
+
+        /* Botón de enviar */
+        .modal-compartir-btn-enviar {
+            background: #1abc9c;
+            color: white;
+        }
+
+        /* Botón de cancelar */
+        .modal-compartir-btn-cancelar {
+            background: #e74c3c;
+            color: white;
+        }
+
+        /* Botón de cerrar modal (X) */
+        .modal-compartir-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        /* Fondo oscuro semitransparente */
+        .modal-seguimiento {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Contenedor del modal */
+        .modal-seguimiento-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 450px;
+            text-align: center;
+            position: relative;
+            animation: seguimientoFadeIn 0.3s ease-in-out;
+        }
+
+        /* Animación de entrada */
+        @keyframes seguimientoFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Título */
+        .modal-seguimiento-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        /* Texto explicativo */
+        .modal-seguimiento-text {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        /* Área de texto */
+        .modal-seguimiento-textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            resize: none;
+        }
+
+        /* Contenedor de botones */
+        .modal-seguimiento-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        /* Botones */
+        .modal-seguimiento-btn {
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: bold;
+        }
+
+        /* Botón de Continuar */
+        .modal-seguimiento-btn-continuar {
+            background: #1abc9c;
+            color: white;
+        }
+
+        /* Botón de Cancelar */
+        .modal-seguimiento-btn-cancelar {
+            background: #e74c3c;
+            color: white;
+        }
+
+        /* Botón de cerrar (X) */
+        .modal-seguimiento-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        /* Fondo oscuro semitransparente */
+        .modal-concluir {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Contenedor del modal */
+        .modal-concluir-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+            position: relative;
+            animation: concluirFadeIn 0.3s ease-in-out;
+        }
+
+        /* Animación de entrada */
+        @keyframes concluirFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Texto del modal */
+        .modal-concluir-text {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        /* Contenedor de botones */
+        .modal-concluir-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        /* Botones */
+        .modal-concluir-btn {
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: bold;
+        }
+
+        /* Botón de Aceptar */
+        .modal-concluir-btn-aceptar {
+            background: #0d6efd;
+            color: white;
+            border: 2px solid #0d6efd;
+        }
+
+        /* Botón de Cancelar */
+        .modal-concluir-btn-cancelar {
+            background: white;
+            color: #0d6efd;
+            border: 2px solid #0d6efd;
+        }
+
+        /* Efecto hover */
+        .modal-concluir-btn-aceptar:hover {
+            background: #0946a1;
+            border-color: #0946a1;
+        }
+
+        .modal-concluir-btn-cancelar:hover {
+            background: #e0e0e0;
+        }
+
+        /* Botón de cerrar (X) */
+        .modal-concluir-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        /* Fondo oscuro */
+        .modal-no-procede {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Contenedor */
+        .modal-no-procede-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+            position: relative;
+            animation: noProcedeFadeIn 0.3s ease-in-out;
+        }
+
+        /* Animación */
+        @keyframes noProcedeFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Texto */
+        .modal-no-procede-text {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        /* Botones */
+        .modal-no-procede-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .modal-no-procede-btn {
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: bold;
+        }
+
+        /* Botón de Aceptar */
+        .modal-no-procede-btn-aceptar {
+            background: #dc3545;
+            color: white;
+            border: 2px solid #dc3545;
+        }
+
+        /* Botón de Cancelar */
+        .modal-no-procede-btn-cancelar {
+            background: white;
+            color: #dc3545;
+            border: 2px solid #dc3545;
+        }
+
+        .modal-no-procede-btn-aceptar:hover {
+            background: #a71d2a;
+        }
+
+        .modal-no-procede-btn-cancelar:hover {
+            background: #e0e0e0;
+        }
+
+        /* Cerrar */
+        .modal-no-procede-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        /* Fondo oscuro */
+        .modal-reservado {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Contenedor */
+        .modal-reservado-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+            position: relative;
+            animation: reservadoFadeIn 0.3s ease-in-out;
+        }
+
+        /* Animación */
+        @keyframes reservadoFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Texto */
+        .modal-reservado-text {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        /* Botones */
+        .modal-reservado-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .modal-reservado-btn {
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: bold;
+        }
+
+        /* Botón de Aceptar */
+        .modal-reservado-btn-aceptar {
+            background: #f39c12;
+            color: white;
+            border: 2px solid #f39c12;
+        }
+
+        /* Botón de Cancelar */
+        .modal-reservado-btn-cancelar {
+            background: white;
+            color: #f39c12;
+            border: 2px solid #f39c12;
+        }
+
+        .modal-reservado-btn-aceptar:hover {
+            background: #c87f0a;
+        }
+
+        .modal-reservado-btn-cancelar:hover {
+            background: #e0e0e0;
+        }
+
+        /* Cerrar */
+        .modal-reservado-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        /* Fondo oscuro */
+        .modal-transferir {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Contenedor */
+        .modal-transferir-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 500px;
+            text-align: center;
+            position: relative;
+            animation: transferirFadeIn 0.3s ease-in-out;
+        }
+
+        /* Animación */
+        @keyframes transferirFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Título */
+        .modal-transferir-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        /* Contenedor de formulario */
+        .modal-transferir-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* Campos de selección */
+        .modal-transferir-select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        /* Área de texto */
+        .modal-transferir-textarea {
+            width: 100%;
+            height: 80px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            resize: none;
+        }
+
+        /* Botones */
+        .modal-transferir-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .modal-transferir-btn {
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: bold;
+        }
+
+        /* Botón de Guardar */
+        .modal-transferir-btn-guardar {
+            background: #1abc9c;
+            color: white;
+        }
+
+        /* Botón de Cancelar */
+        .modal-transferir-btn-cancelar {
+            background: #e74c3c;
+            color: white;
+        }
+
+        /* Cerrar */
+        .modal-transferir-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        /* Fondo oscuro */
+        .modal-confirmacion {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Contenedor */
+        .modal-confirmacion-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+            animation: confirmacionFadeIn 0.3s ease-in-out;
+        }
+
+        /* Animación */
+        @keyframes confirmacionFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Texto */
+        .modal-confirmacion-text {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        /* Botón */
+        .modal-confirmacion-btn {
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            background: #1abc9c;
+            color: white;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -217,7 +884,6 @@
     <div class="incidencia-container">
         <div class="header-buttons">
             <div class="left-buttons">
-                <button class="btn btn-pdf"><i class="fas fa-file-pdf"></i> Imprimir (PDF)</button>
                 <button class="btn btn-share"><i class="fas fa-share"></i> Compartir</button>
             </div>
             <div class="right-buttons">
@@ -279,7 +945,7 @@
                         <th>Estatus</th>
                         <th>Fecha</th>
                         <th>Usuario</th>
-                        <th>Comentarios</th>
+                        <th>Petición Específica</th>
                     </tr>
                 </thead>
                 <tbody id="seguimientoTableBody">
@@ -305,94 +971,138 @@
             <button class="btn btn-new"><i class="fas fa-plus"></i> Nueva Incidencia</button>
         </div>
     </div>
+    <!-- Modal para compartir incidencia -->
+    <div id="modalCompartirIncidencia" class="modal-compartir">
+        <div class="modal-compartir-content">
+            <span class="modal-compartir-close">&times;</span>
+            <h2 class="modal-compartir-title">Compartir Incidente</h2>
+            <p class="modal-compartir-text">Escribe el correo electrónico para compartir:</p>
+            <input type="email" id="correoCompartir" class="modal-compartir-input" placeholder="correo@ejemplo.com">
+            <div class="modal-compartir-buttons">
+                <button class="modal-compartir-btn modal-compartir-btn-enviar">
+                    <i class="fas fa-paper-plane"></i> Enviar
+                </button>
+                <button class="modal-compartir-btn modal-compartir-btn-cancelar">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Seguimiento -->
+    <div id="modalSeguimiento" class="modal-seguimiento">
+        <div class="modal-seguimiento-content">
+            <span class="modal-seguimiento-close">&times;</span>
+            <h2 class="modal-seguimiento-title">Seguimiento</h2>
+            <p class="modal-seguimiento-text">Escribe un comentario:</p>
+            <textarea id="comentarioSeguimiento" class="modal-seguimiento-textarea"
+                placeholder="Escribe aquí..."></textarea>
+            <div class="modal-seguimiento-buttons">
+                <button class="modal-seguimiento-btn modal-seguimiento-btn-continuar">
+                    <i class="fas fa-arrow-right"></i> Continuar
+                </button>
+                <button class="modal-seguimiento-btn modal-seguimiento-btn-cancelar">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Confirmar Conclusión -->
+    <div id="modalConcluir" class="modal-concluir">
+        <div class="modal-concluir-content">
+            <span class="modal-concluir-close">&times;</span>
+            <p class="modal-concluir-text">Estás por concluir el incidente. <br> ¿Deseas continuar?</p>
+            <div class="modal-concluir-buttons">
+                <button class="modal-concluir-btn modal-concluir-btn-aceptar">
+                    <i class="fas fa-check"></i> Aceptar
+                </button>
+                <button class="modal-concluir-btn modal-concluir-btn-cancelar">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Confirmar "No Procede" -->
+    <div id="modalNoProcede" class="modal-no-procede">
+        <div class="modal-no-procede-content">
+            <span class="modal-no-procede-close">&times;</span>
+            <p class="modal-no-procede-text">El incidente será marcado como "No Procede". <br> ¿Deseas continuar?</p>
+            <div class="modal-no-procede-buttons">
+                <button class="modal-no-procede-btn modal-no-procede-btn-aceptar">
+                    <i class="fas fa-check"></i> Aceptar
+                </button>
+                <button class="modal-no-procede-btn modal-no-procede-btn-cancelar">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Confirmar "Reservado" -->
+    <div id="modalReservado" class="modal-reservado">
+        <div class="modal-reservado-content">
+            <span class="modal-reservado-close">&times;</span>
+            <p class="modal-reservado-text">El incidente será marcado como "Reservado". <br> ¿Deseas continuar?</p>
+            <div class="modal-reservado-buttons">
+                <button class="modal-reservado-btn modal-reservado-btn-aceptar">
+                    <i class="fas fa-check"></i> Aceptar
+                </button>
+                <button class="modal-reservado-btn modal-reservado-btn-cancelar">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+
+   <!-- Modal para Transferir Incidencia -->
+<div id="modalTransferir" class="modal-transferir">
+    <div class="modal-transferir-content">
+        <span class="modal-transferir-close">&times;</span>
+        <h2 class="modal-transferir-title">Transferir Incidencia</h2>
+
+        <div class="modal-transferir-form">
+            <select id="selectSecretaria" class="modal-transferir-select">
+                <option selected disabled>Seleccione una secretaría...</option>
+            </select>
+
+            <select id="selectCoordinacion" class="modal-transferir-select" disabled>
+                <option selected disabled>Seleccione una coordinación/dirección...</option>
+            </select>
+
+            <select id="selectJefatura" class="modal-transferir-select" disabled>
+                <option selected disabled>Seleccione una jefatura...</option>
+            </select>
+
+            <textarea id="motivoTransferencia" class="modal-transferir-textarea" placeholder="Motivo de la transferencia..."></textarea>
+        </div>
+
+        <div class="modal-transferir-buttons">
+            <button class="modal-transferir-btn modal-transferir-btn-guardar">
+                <i class="fas fa-save"></i> Guardar
+            </button>
+            <button class="modal-transferir-btn modal-transferir-btn-cancelar">
+                <i class="fas fa-times"></i> Cancelar
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
+
+    <!-- Modal de Confirmación -->
+    <div id="modalConfirmacion" class="modal-confirmacion">
+        <div class="modal-confirmacion-content">
+            <p class="modal-confirmacion-text">Los cambios se guardaron con éxito.</p>
+            <button class="modal-confirmacion-btn">Aceptar</button>
+        </div>
+    </div>
+
 
     <script src="js/mainI.js"></script>
 
-    <script>
-        /*document.addEventListener("DOMContentLoaded", async () => {
-            // Obtener parámetros de la URL para saber qué folio cargar
-            const urlParams = new URLSearchParams(window.location.search);
-            const folio = urlParams.get("folio");
-    
-            if (!folio) {
-                alert("No se encontró un folio válido.");
-                return;
-            }
-    
-            try {
-                // Realizar la solicitud para obtener la información de la incidencia
-                const response = await fetch(`obtener_incidencia.php?folio=${folio}`);
-                const data = await response.json();
-    
-                if (data.error) {
-                    alert(data.error);
-                    return;
-                }
-    
-                // Asignar los datos obtenidos a los elementos correspondientes
-                document.querySelector(".folio-info").textContent = `FOLIO: ${data.folio_cus} / CREADO: ${data.fecha_creacion}`;
-    
-                // Mostrar la información general de la incidencia
-                document.getElementById("info").innerHTML = `
-                    <h2>Información</h2>
-                    <p><strong>Tipo de Solicitante:</strong> ${data.tipo_solicitante}</p>
-                    <p><strong>Origen:</strong> ${data.origen}</p>
-                    <p><strong>Motivo:</strong> ${data.motivo}</p>
-                    <p><strong>Secretaría:</strong> ${data.secretaria}</p>
-                    <p><strong>Coordinación:</strong> ${data.coordinacion || "N/A"}</p>
-                    <p><strong>Departamento:</strong> ${data.departamento || "N/A"}</p>
-                    <p><strong>Tipo de Incidencia:</strong> ${data.tipo_incidencia}</p>
-                    <p><strong>Colonia:</strong> ${data.colonia || "N/A"}</p>
-                    <p><strong>Dirección:</strong> ${data.direccion || "N/A"}</p>
-                    <p><strong>Referencia:</strong> ${data.referencia || "N/A"}</p>
-                    <p><strong>Comentarios:</strong> ${data.comentarios}</p>
-                `;
-    
-                // Cargar seguimiento en la tabla
-                const seguimientoTableBody = document.getElementById("seguimientoTableBody");
-                seguimientoTableBody.innerHTML = ""; // Limpiar tabla antes de insertar
-                if (data.seguimiento && data.seguimiento.length > 0) {
-                    data.seguimiento.forEach((item, index) => {
-                        const row = document.createElement("tr");
-                        row.innerHTML = `
-                            <td>${index + 1}</td>
-                            <td>${item.estatus}</td>
-                            <td>${item.fecha}</td>
-                            <td>${item.usuario}</td>
-                            <td>${item.comentarios || ""}</td>
-                        `;
-                        seguimientoTableBody.appendChild(row);
-                    });
-                } else {
-                    seguimientoTableBody.innerHTML = `<tr><td colspan="5">No hay registros de seguimiento.</td></tr>`;
-                }
-    
-                // Cargar archivos en la tabla de archivos
-                const fileTableBody = document.getElementById("fileTableBody");
-                fileTableBody.innerHTML = ""; // Limpiar tabla antes de insertar
-                if (data.archivos && data.archivos.length > 0) {
-                    data.archivos.forEach((archivo, index) => {
-                        const row = document.createElement("tr");
-                        row.innerHTML = `
-                            <td>${index + 1}</td>
-                            <td>${archivo.nombre}</td>
-                            <td>${(archivo.tamano / 1024).toFixed(2)} KB</td>
-                            <td>${archivo.usuario}</td>
-                            <td>${archivo.fecha}</td>
-                        `;
-                        fileTableBody.appendChild(row);
-                    });
-                } else {
-                    fileTableBody.innerHTML = `<tr><td colspan="5">No hay archivos adjuntos.</td></tr>`;
-                }
-    
-            } catch (error) {
-                console.error("Error al obtener los datos:", error);
-                alert("Hubo un problema al cargar la información.");
-            }
-        });*/
-    </script>
-    
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
