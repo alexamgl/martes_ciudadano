@@ -231,22 +231,25 @@
                 <div class="info-box">
                     <label>Coordinación/Dirección <span style="color: red;">*</span></label>
                     <select id="coordinacion" class="disabled">
-                        <option value="">Seleccione...</option>
+                        <option value="No aplica">Seleccione...</option>
                     </select>
                 </div>
                 <div class="info-box">
-                    <label>Departamento <span style="color: red;">*</span></label>
+                    <label>Jefatura <span style="color: red;">*</span></label>
                     <select id="jefatura" class="disabled">
-                        <option value="">Seleccione...</option>
+                        <option value="No aplica">Seleccione...</option>
                     </select>
                 </div>
             </div>
 
             <div class="info-section">
                 <div class="info-box">
-                    <label>Tipo de incidencia <span style="color: red;">*</span></label>
+                    <label>Días para dar respuesta <span style="color: red;">*</span></label>
                     <select id="tipo_incidencia">
                         <option value="Seleccione...">Seleccione...</option>
+                        <option value="3 días">3 días</option>
+                        <option value="6 días">6 días</option>
+                        <option value="10 días">10 días</option>
                     </select>
                 </div>
                 <div class="info-box">
@@ -412,7 +415,7 @@
     <script>
         document.querySelector(".btn-create").addEventListener("click", async function () {
             const data = {
-                folio_cus: document.querySelector("input[placeholder='Ingrese folio']").value,
+                folio_cus: document.querySelector("input[placeholder='Ingrese CURP']").value,
                 tipo_solicitante: document.getElementById("tipo_solicitante").value,
                 origen: document.getElementById("origen").value,
                 motivo: document.getElementById("motivo").value,
@@ -420,7 +423,7 @@
                 coordinacion: document.getElementById("coordinacion").value,
                 departamento: document.getElementById("jefatura").value,
                 tipo_incidencia: document.getElementById("tipo_incidencia").value,
-                colonia: document.getElementById("colonia").value,
+                colonia: document.getElementById("colonias").value,
                 direccion: document.querySelector("input[placeholder='Ingrese dirección']").value,
                 referencia: document.querySelector("input[placeholder='Ingrese referencia']").value,
                 comentarios: document.querySelector("textarea").value

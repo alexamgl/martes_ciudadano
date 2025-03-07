@@ -85,7 +85,7 @@ document.querySelector(".btn-create").addEventListener("click", function() {
         return;
     }
 
-    let folio_cus = `CUS-${folioUsuario}`;
+    let folio_cus = `${folioUsuario}`;
 
     let data = {
         folio_cus: folio_cus,
